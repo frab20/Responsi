@@ -101,4 +101,12 @@ public class MovieView extends JFrame{
     public String getAkting(){
         return tfAkting.getText();
     }
+
+    public void Clear() {
+        tfJudul.setText("");
+        tfAlur.setText("");
+        tfPenokohan.setText("");
+        tfAkting.setText("");
+    }
+    
 }
