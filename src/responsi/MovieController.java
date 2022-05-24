@@ -25,8 +25,8 @@ public class MovieController {
         this.viewMovie = viewMovie;
         
         if (modelMovie.getBanyakData()!=0) {
-            String dataKontak[][] = modelMovie.readMovie();
-            viewMovie.tabel.setModel((new JTable(dataKontak, viewMovie.namaKolom)).getModel());
+            String dataMovie[][] = modelMovie.readMovie();
+            viewMovie.tabel.setModel((new JTable(dataMovie, viewMovie.namaKolom)).getModel());
         }
         else {
             JOptionPane.showMessageDialog(null, "Data Tidak Ada");
@@ -42,8 +42,8 @@ public class MovieController {
                 
                 modelMovie.insertData(Judul, Alur, Penokohan, Akting, Nilai);
          
-                String dataKontak[][] = modelMovie.readMovie();
-                viewMovie.tabel.setModel((new JTable(dataKontak, viewMovie.namaKolom)).getModel());
+                String dataMoive[][] = modelMovie.readMovie();
+                viewMovie.tabel.setModel((new JTable(dataMoive, viewMovie.namaKolom)).getModel());
             }
         });
         
@@ -57,15 +57,36 @@ public class MovieController {
                 
                 modelMovie.updateMovie(Judul, Alur, Penokohan, Akting, Nilai);
                 
-                String dataKontak[][] = modelMovie.readMovie();
-                viewMovie.tabel.setModel((new JTable(dataKontak, viewMovie.namaKolom)).getModel());
+                String dataMoive[][] = modelMovie.readMovie();
+                viewMovie.tabel.setModel((new JTable(dataMoive, viewMovie.namaKolom)).getModel());
+            }
+        });
+        
+        viewMovie.btnDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                String Judul = viewMovie.getJudul();
+ 
+                System.out.println(Judul);
+
+                int input = JOptionPane.showConfirmDialog(null,
+                        "Apa anda ingin menghapus Movie " + Judul + "?", "Pilih Opsi...", JOptionPane.YES_NO_OPTION);
+
+                if (input == 0) {
+                    modelMovie.deleteMovie(Judul);
+                    String dataMoive[][] = modelMovie.readMovie();
+                    viewMovie.tabel.setModel(new JTable(dataMoive, viewMovie.namaKolom).getModel());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tidak Jadi Dihapus");
+                }
+                
             }
         });
         
         viewMovie.btnReset.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                String dataKontak[][] = modelMovie.readMovie();
-                viewMovie.tabel.setModel((new JTable(dataKontak, viewMovie.namaKolom)).getModel());
+                String dataMoive[][] = modelMovie.readMovie();
+                viewMovie.tabel.setModel((new JTable(dataMoive, viewMovie.namaKolom)).getModel());
+                viewMovie.Clear();
             }
         });
         
@@ -75,17 +96,17 @@ public class MovieController {
                 int baris = viewMovie.tabel.getSelectedRow();
                 int kolom = viewMovie.tabel.getSelectedColumn(); // ga kepake sekarang
 
-                String dataterpilih = viewMovie.tabel.getValueAt(baris, 1).toString();
+                String dataterpilih = viewMovie.tabel.getValueAt(baris, 0).toString();
 
                 System.out.println(dataterpilih);
 
                 int input = JOptionPane.showConfirmDialog(null,
-                        "Apa anda ingin menghapus NoHp " + dataterpilih + "?", "Pilih Opsi...", JOptionPane.YES_NO_OPTION);
+                        "Apa anda ingin menghapus Movie " + dataterpilih + "?", "Pilih Opsi...", JOptionPane.YES_NO_OPTION);
 
                 if (input == 0) {
                     modelMovie.deleteMovie(dataterpilih);
-                    String dataKontak[][] = modelMovie.readMovie();
-                    viewMovie.tabel.setModel(new JTable(dataKontak, viewMovie.namaKolom).getModel());
+                    String dataMoive[][] = modelMovie.readMovie();
+                    viewMovie.tabel.setModel(new JTable(dataMoive, viewMovie.namaKolom).getModel());
                 } else {
                     JOptionPane.showMessageDialog(null, "Tidak Jadi Dihapus");
                 }
