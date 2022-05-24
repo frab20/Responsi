@@ -64,7 +64,8 @@ public class ModelMovie {
     public void insertData(String judul, double alur, double penokohan, double akting,double nilai){
         int jmlData=0;
         try {
-           String query = "Select * from movie WHERE judul=" + judul; 
+           String query = "Select * from movie WHERE judul='" + judul + "'"; 
+           System.out.println(judul + " " + alur + " " + penokohan + " " + akting + " " + nilai);
            ResultSet resultSet = statement.executeQuery(query);
            
            while (resultSet.next()){ 
@@ -91,7 +92,7 @@ public class ModelMovie {
     public void updateMovie(String judul, double alur, double penokohan, double akting,double nilai){
         int jmlData=0;
          try {
-           String query = "Select * from movie WHERE judul=" + judul;  
+           String query = "Select * from movie WHERE judul='" + judul + "'";  
            ResultSet resultSet = statement.executeQuery(query);
            
            while (resultSet.next()){ 
@@ -99,7 +100,7 @@ public class ModelMovie {
             }
            
              if (jmlData==1) {
-                query = "UPDATE movie SET alur='" + alur + "', penokohan='" + penokohan + "', akting='" + akting + "', nilai='" + nilai + "' WHERE jdudl=" + judul;
+                query = "UPDATE movie SET alur=" + alur + ", penokohan=" + penokohan + ", akting=" + akting + ", nilai=" + nilai + " WHERE judul='" + judul + "'";
                 statement = (Statement) koneksi.createStatement();
                 statement.executeUpdate(query); //execute querynya
                 System.out.println("Berhasil diupdate");
